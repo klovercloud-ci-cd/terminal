@@ -46,5 +46,4 @@ func ValidateToken(tokenString string) (bool, *jwt.Token) {
 		return false, nil
 	}
 	return true, token
-
 }

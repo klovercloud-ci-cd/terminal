@@ -15,6 +15,7 @@ var config *rest.Config
 var once sync.Once
 var KubeConfig *rest.Config
 
+// GetKubeConfig returns rest config for kubernetes.
 func GetKubeConfig() *rest.Config {
 	var config *rest.Config
 	var err error
@@ -23,8 +24,8 @@ func GetKubeConfig() *rest.Config {
 	} else {
 		if home := homedir.HomeDir(); home != "" {
 
-			kubeconfig := flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-			config, err = clientcmd.BuildConfigFromFlags("", *kubeconfig)
+			kubeConfig := flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeConfig file")
+			config, err = clientcmd.BuildConfigFromFlags("", *kubeConfig)
 
 		} else {
 			config, err = clientcmd.BuildConfigFromFlags("", "")
@@ -36,6 +37,7 @@ func GetKubeConfig() *rest.Config {
 	return config
 }
 
+// GetClientSet returns k8s clientSets
 func GetClientSet() *kubernetes.Clientset {
 	once.Do(func() {
 		config = GetKubeConfig()

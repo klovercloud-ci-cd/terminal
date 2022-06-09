@@ -8,6 +8,8 @@ import (
 	"github.com/klovercloud-ci-cd/terminal/service"
 )
 
+// @title Klovercloud-ci-cd-terminal API
+// @description Klovercloud-ci-cd-terminal API
 func main() {
 	config.InitEnvironmentVariables()
 	config.KubeConfig = config.GetKubeConfig()
@@ -22,8 +24,3 @@ func main() {
 	service.SetPublicKey()
 	beego.Run(":" + config.ServerPort)
 }
-
-//go get k8s.io/api@kubernetes-1.12.9
-//go get k8s.io/apimachinery@kubernetes-1.12.9
-//go get k8s.io/client-go@kubernetes-1.12.9
-// go get github.com/googleapis/gnostic@v0.4.0

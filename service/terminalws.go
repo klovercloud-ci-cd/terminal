@@ -19,6 +19,17 @@ import (
 	"net/http"
 )
 
+type TerminalSockjs struct {
+	conn      sockjs.Session
+	sizeChan  chan *remotecommand.TerminalSize
+	context   string
+	companyId string
+	namespace string
+	pod       string
+	container string
+}
+
+// Read satisfies sockjs.Session interface.
 func (self TerminalSockjs) Read(p []byte) (int, error) {
 	var reply string
 	var msg map[string]uint16
@@ -40,16 +51,6 @@ func (self TerminalSockjs) Read(p []byte) (int, error) {
 func (self TerminalSockjs) Write(p []byte) (int, error) {
 	err := self.conn.Send(string(p))
 	return len(p), err
-}
-
-type TerminalSockjs struct {
-	conn      sockjs.Session
-	sizeChan  chan *remotecommand.TerminalSize
-	context   string
-	companyId string
-	namespace string
-	pod       string
-	container string
 }
 
 // queue
